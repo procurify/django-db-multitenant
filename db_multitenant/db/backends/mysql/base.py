@@ -24,7 +24,7 @@ class CursorWrapper(WRAPPED_BACKEND.CursorWrapper):
         cid = get_cid()
         cid_sql_template = getattr(settings, "CID_SQL_COMMENT_TEMPLATE", "cid: {cid}")
         cid = cid.replace("/*", r"\/\*").replace("*/", r"\*\/")
-        return "/* {} */\n{}".format(cid_sql_template.format(cid=cid), sql)
+        return "{}\n/* {} */".format(sql, cid_sql_template.format(cid=cid))
 
     def execute(self, query, args=None):
         query = self._add_comment(query)
