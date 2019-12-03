@@ -24,15 +24,15 @@ class CursorWrapper(WRAPPED_BACKEND.CursorWrapper):
         cid = get_cid()
         cid_sql_template = getattr(settings, "CID_SQL_COMMENT_TEMPLATE", "cid: {cid}")
         cid = cid.replace("/*", r"\/\*").replace("*/", r"\*\/")
-         return "{}\n/* {} */".format(sql, cid_sql_template.format(cid=cid))
+        return "{}\n/* {} */".format(sql, cid_sql_template.format(cid=cid))
 
     def execute(self, query, args=None):
-        query = super().execute(query, args)
-        return self._add_comment(query)
+        query = self._add_comment(query)
+        return super().execute(query, args)
 
     def executemany(self, query, args):
-        query = super().executemany(query, args)
-        return self._add_comment(query)
+        query = self._add_comment(query)
+        return super().executemany(query, args)
 
 
 class DatabaseWrapper(WRAPPED_BACKEND.DatabaseWrapper):
