@@ -35,7 +35,13 @@ class MultiTenantThreadlocal(local):
 
     def get_cache_prefix(self):
         return self.cache_prefix
+    
+    def set_db_connection_name(self, db_connection_name):
+        self.db_connection_name = db_connection_name
 
+    def get_db_connection_name(self):
+        return self.db_connection_name
+    
     def reset(self):
         self.tenant_name = None
         self.db_name = None
