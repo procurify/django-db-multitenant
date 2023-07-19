@@ -39,6 +39,7 @@ class DatabaseWrapper(WRAPPED_BACKEND.DatabaseWrapper):
     def __init__(self, *args, **kwargs):
         super(DatabaseWrapper, self).__init__(*args, **kwargs)
         self.threadlocal = MultiTenantThreadlocal()
+        self.ops_class.allows_auto_pk_0 = True
 
     def get_threadlocal(self):
         return self.threadlocal
